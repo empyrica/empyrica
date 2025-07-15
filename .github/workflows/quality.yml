@@ -1,0 +1,32 @@
+name: Code Quality
+
+on:
+    pull_request:
+    push:
+        branches: [ main ]
+
+jobs:
+    phpcs:
+        name: Check Code Style (phpcs)
+        runs-on: ubuntu-latest
+        steps:
+            -
+                name: CheckOut repository
+                uses: actions/checkout@v4
+            -
+                name: SetUp php
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: 8.4
+            -
+                name: Composer install
+                uses: ramsey/composer-install@v3
+            -
+                name: Run phpcs
+                run: ./vendor/bin/phpcs --ignore=*/vendor/*,*/var/*,*/bin/* --standard=PSR12 --exclude=Generic.Files.LineLength packages
+            -
+                name: Static Analysis (Psalm)
+                run: ./vendor/bin/psalm --no-progress --show-info=false --stats
+            -
+                name: PHPUnit
+                run: ./vendor/bin/phpunit

@@ -1,0 +1,46 @@
+# How it works:
+# 1. Trigger: It runs only when a version tag (e.g. v1.0.0) is pushed.
+# 2. It checks out the full monorepo history (needed for splitting).
+# 3. It checks if GitHub repositories for all packages exist, and creates them if missing.
+# 4. It splits each package from the monorepo and pushes it to its own read-only repo.
+# 5. It creates missing packages on Packagist if needed.
+# 6. It updates metadata on Packagist for all registered packages.
+
+name: Release
+
+on:
+    push:
+        tags: [ 'v*' ]
+
+env:
+    GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    GH_USER: ${{ vars.GH_USER }}
+    GH_EMAIL: ${{ vars.GH_EMAIL }}
+    PG_TOKEN: ${{ secrets.PG_TOKEN }}
+    PG_USER: ${{ vars.PG_USER }}
+
+jobs:
+    split-packages:
+        runs-on: ubuntu-latest
+        steps:
+            -
+                name: CheckOut repository with full history
+                uses: actions/checkout@v4
+                with:
+                    persist-credentials: false
+                    fetch-depth: 0
+            -
+                name: SetUp git-cliff
+                uses: kenji-miyake/setup-git-cliff@v1
+            -
+                name: Create any missing GitHub repositories for packages
+                run: .github/bin/pkg-list | .github/bin/gh-missing | .github/bin/gh-create
+            -
+                name: Split commits of packages from monorepo and push to target repos
+                run: .github/bin/pkg-list | .github/bin/pkg-split
+            -
+                name: Create Missing Packagist Packages
+                run: .github/bin/pkg-list | .github/bin/pg-missing | .github/bin/pg-create
+            -
+                name: Update Packagist metadata for all packages
+                run: .github/bin/pkg-list | .github/bin/pg-registered | .github/bin/pg-update

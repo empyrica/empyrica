@@ -1,0 +1,29 @@
+# PhpStorm / IntelliJ
+.idea/
+*.iml
+out/
+
+# VSCode
+.vscode/
+.history/
+
+# Eclipse / NetBeans
+.project
+.buildpath
+.settings/
+.nbproject/
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# PHP tooling
+/vendor/
+/composer.lock
+/.cache/
+/.phpunit.result.cache
+/.php-cs-fixer.cache
