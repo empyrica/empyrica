@@ -1,6 +1,6 @@
 <?php
 
-namespace Empiriq\BinanceManagerBundle\Spot\Spot\Repositories\Synchronizers;
+namespace Empiriq\BinanceManager\Spot\Spot\Repositories\Synchronizers;
 
 use Empiriq\BinanceContracts\Spot\Spot\Events\User\ExecutionReportEvent;
 use React\Promise\PromiseInterface;

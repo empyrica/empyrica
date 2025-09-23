@@ -1,13 +1,13 @@
 <?php
 
-namespace Empiriq\BinanceManagerBundle\Derivatives\FuturesUsdM\Repositories;
+namespace Empiriq\BinanceManager\Derivatives\FuturesUsdM\Repositories;
 
 use Empiriq\BinanceTradeBundle\Common\Interfaces\ClientInterface;
 use Empiriq\BinanceTradeBundle\Connector;
 use Empiriq\BinanceContracts\Derivatives\FuturesUsdM\Events\Market\DepthEvent;
 use Empiriq\BinanceContracts\Derivatives\FuturesUsdM\Responses\MarketData\Results\DepthResult;
-use Empiriq\BinanceManagerBundle\Common\Interfaces\Repositories\FuturesUmRepositoryInterface;
-use Empiriq\BinanceManagerBundle\Derivatives\FuturesUsdM\Repositories\Synchronizers\DepthSynchronizer;
+use Empiriq\BinanceManager\Common\Interfaces\Repositories\FuturesUmRepositoryInterface;
+use Empiriq\BinanceManager\Derivatives\FuturesUsdM\Repositories\Synchronizers\DepthSynchronizer;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DepthRepository implements FuturesUmRepositoryInterface

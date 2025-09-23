@@ -1,6 +1,6 @@
 <?php
 
-namespace Empiriq\BinanceManagerBundle\Common;
+namespace Empiriq\BinanceManager\Common;
 
 /**
  * Ring buffer (circular buffer) implementation.

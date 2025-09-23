@@ -1,9 +1,9 @@
 <?php
 
-namespace Empiriq\BinanceManagerBundle\Derivatives\FuturesCoinM\Repositories;
+namespace Empiriq\BinanceManager\Derivatives\FuturesCoinM\Repositories;
 
-use Empiriq\BinanceManagerBundle\Common\Interfaces\Repositories\FuturesCmRepositoryInterface;
-use Empiriq\BinanceManagerBundle\Derivatives\FuturesCoinM\Repositories\Synchronizers\PositionHistorySynchronizer;
+use Empiriq\BinanceManager\Common\Interfaces\Repositories\FuturesCmRepositoryInterface;
+use Empiriq\BinanceManager\Derivatives\FuturesCoinM\Repositories\Synchronizers\PositionHistorySynchronizer;
 
 class PositionHistoryRepository implements FuturesCmRepositoryInterface
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Empiriq\BinanceManagerBundle\Derivatives\FuturesUsdM\Repositories;
+namespace Empiriq\BinanceManager\Derivatives\FuturesUsdM\Repositories;
 
 use Empiriq\BinanceTradeBundle\Connector;
-use Empiriq\BinanceManagerBundle\Common\Interfaces\Repositories\FuturesUmRepositoryInterface;
-use Empiriq\BinanceManagerBundle\Derivatives\FuturesUsdM\Repositories\Synchronizers\OrderHistorySynchronizer;
+use Empiriq\BinanceManager\Common\Interfaces\Repositories\FuturesUmRepositoryInterface;
+use Empiriq\BinanceManager\Derivatives\FuturesUsdM\Repositories\Synchronizers\OrderHistorySynchronizer;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class OrderHistoryRepository implements FuturesUmRepositoryInterface

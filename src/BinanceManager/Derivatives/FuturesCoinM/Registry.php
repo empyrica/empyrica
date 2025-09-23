@@ -1,6 +1,6 @@
 <?php
 
-namespace Empiriq\BinanceManagerBundle\Derivatives\FuturesCoinM;
+namespace Empiriq\BinanceManager\Derivatives\FuturesCoinM;
 
 use Empiriq\BinanceManager\Common\Interfaces\RegistryInterface;
 use Empiriq\BinanceManager\Common\Interfaces\Repositories\FuturesCmRepositoryInterface;

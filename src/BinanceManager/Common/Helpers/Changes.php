@@ -1,6 +1,6 @@
 <?php
 
-namespace Empiriq\BinanceManagerBundle\Common\Helpers;
+namespace Empiriq\BinanceManager\Common\Helpers;
 
 use InvalidArgumentException;
 use ReflectionClass;

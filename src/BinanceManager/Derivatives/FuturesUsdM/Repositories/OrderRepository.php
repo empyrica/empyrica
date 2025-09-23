@@ -1,11 +1,11 @@
 <?php
 
-namespace Empiriq\BinanceManagerBundle\Derivatives\FuturesUsdM\Repositories;
+namespace Empiriq\BinanceManager\Derivatives\FuturesUsdM\Repositories;
 
 use Empiriq\BinanceTradeBundle\Connector;
 use Empiriq\BinanceContracts\Spot\Spot\Events\User\ExecutionReportEvent;
-use Empiriq\BinanceManagerBundle\Common\Interfaces\Repositories\FuturesUmRepositoryInterface;
-use Empiriq\BinanceManagerBundle\Derivatives\FuturesUsdM\Repositories\Synchronizers\OrderSynchronizer;
+use Empiriq\BinanceManager\Common\Interfaces\Repositories\FuturesUmRepositoryInterface;
+use Empiriq\BinanceManager\Derivatives\FuturesUsdM\Repositories\Synchronizers\OrderSynchronizer;
 use Empiriq\Contracts\Entities\OrderEntity;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 

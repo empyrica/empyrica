@@ -1,6 +1,6 @@
 <?php
 
-namespace Empiriq\BinanceManagerBundle\Spot\Spot\Repositories\Synchronizers;
+namespace Empiriq\BinanceManager\Spot\Spot\Repositories\Synchronizers;
 
 use React\Promise\PromiseInterface;
 

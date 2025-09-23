@@ -1,6 +1,6 @@
 <?php
 
-namespace Empiriq\BinanceManagerBundle\Common\Interfaces;
+namespace Empiriq\BinanceManager\Common\Interfaces;
 
 use React\Promise\PromiseInterface;
 

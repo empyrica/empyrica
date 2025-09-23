@@ -1,10 +1,10 @@
 <?php
 
-namespace Empiriq\BinanceManagerBundle\Derivatives\FuturesUsdM;
+namespace Empiriq\BinanceManager\Derivatives\FuturesUsdM;
 
-use Empiriq\BinanceManagerBundle\Common\Interfaces\RegistryInterface;
-use Empiriq\BinanceManagerBundle\Common\Interfaces\Repositories\FuturesUmRepositoryInterface;
-use Empiriq\BinanceManagerBundle\Common\RegistryTrait;
+use Empiriq\BinanceManager\Common\Interfaces\RegistryInterface;
+use Empiriq\BinanceManager\Common\Interfaces\Repositories\FuturesUmRepositoryInterface;
+use Empiriq\BinanceManager\Common\RegistryTrait;
 use Empiriq\BinanceManager\Derivatives\FuturesUsdM\Repositories\BalanceRepository;
 use Empiriq\BinanceManager\Derivatives\FuturesUsdM\Repositories\DepthRepository;
 use Empiriq\BinanceManager\Derivatives\FuturesUsdM\Repositories\OrderHistoryRepository;

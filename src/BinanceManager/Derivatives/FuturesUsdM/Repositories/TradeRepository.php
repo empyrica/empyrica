@@ -1,11 +1,11 @@
 <?php
 
-namespace Empiriq\BinanceManagerBundle\Derivatives\FuturesUsdM\Repositories;
+namespace Empiriq\BinanceManager\Derivatives\FuturesUsdM\Repositories;
 
 use Empiriq\BinanceTradeBundle\Connector;
-use Empiriq\BinanceManagerBundle\Common\Interfaces\Repositories\FuturesUmRepositoryInterface;
-use Empiriq\BinanceManagerBundle\Common\RingBuffer;
-use Empiriq\BinanceManagerBundle\Derivatives\FuturesUsdM\Repositories\Synchronizers\TradeSynchronizer;
+use Empiriq\BinanceManager\Common\Interfaces\Repositories\FuturesUmRepositoryInterface;
+use Empiriq\BinanceManager\Common\RingBuffer;
+use Empiriq\BinanceManager\Derivatives\FuturesUsdM\Repositories\Synchronizers\TradeSynchronizer;
 use Empiriq\Contracts\Entities\TradeEntity;
 use Empiriq\Contracts\Events\TradeAddedEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

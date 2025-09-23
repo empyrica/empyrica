@@ -1,8 +1,8 @@
 <?php
 
-namespace Empiriq\BinanceManagerBundle\Common;
+namespace Empiriq\BinanceManager\Common;
 
-use Empiriq\BinanceManagerBundle\Common\Interfaces\RepositoryInterface;
+use Empiriq\BinanceManager\Common\Interfaces\RepositoryInterface;
 use React\Promise\PromiseInterface;
 
 use function React\Promise\all;

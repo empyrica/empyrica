@@ -1,10 +1,10 @@
 <?php
 
-namespace Empiriq\BinanceManagerBundle\Spot\Spot\Repositories;
+namespace Empiriq\BinanceManager\Spot\Spot\Repositories;
 
 // тут есть коммисии
 use Empiriq\BinanceTradeBundle\Connector;
-use Empiriq\BinanceManagerBundle\Common\Interfaces\Repositories\SpotRepositoryInterface;
+use Empiriq\BinanceManager\Common\Interfaces\Repositories\SpotRepositoryInterface;
 use Empiriq\BinanceManager\Spot\Spot\Repositories\Synchronizers\TradeHistorySynchronizer;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
