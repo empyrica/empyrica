@@ -1,5 +1,6 @@
 #!/bin/sh
 set -eu
+#todo replace ls -l pkg
 
 print_help() {
     cat <<EOF

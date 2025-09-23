@@ -19,10 +19,10 @@ jobs:
               uses: ramsey/composer-install@v3
 
             - name: Run PHPCS (Code Style)
-              run: ./vendor/bin/phpcs --ignore=*/vendor/*,*/var/*,*/bin/* --standard=PSR12 --exclude=Generic.Files.LineLength packages
+              run: vendor/bin/phpcs --ignore=*/vendor/*,*/var/*,*/bin/* --standard=PSR12 --exclude=Generic.Files.LineLength packages
 
             - name: Run Psalm (Static Analysis)
-              run: ./vendor/bin/psalm --no-progress --show-info=false --stats
+              run: vendor/bin/psalm --config=etc/psalm.xml --no-progress
 
             - name: Run PHPUnit (Tests)
-              run: ./vendor/bin/phpunit
+              run: vendor/bin/phpunit --configuration=etc/phpunit.xml --cache-directory=var

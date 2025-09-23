@@ -1,6 +1,5 @@
 {
     "name": "empiriq/empiriq",
-    "version": "0.0.1",
     "minimum-stability": "alpha",
     "prefer-stable": true,
     "description": "Lazy iterators for historical Binance data from https://data.binance.vision",
@@ -72,28 +71,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Empiriq\\BinanceApiConnector\\": "packages/binance-trade-bundle",
-            "Empiriq\\BinanceContracts\\": "packages/binance-contracts",
-            "Empiriq\\BinanceHistoryConnector\\": "packages/binance-backtrade-bundle",
-            "Empiriq\\BinanceManager\\": "packages/binance-manager-bundle",
-            "Empiriq\\Contracts\\": "packages/contracts",
-            "Empiriq\\Server\\": "packages/server",
-            "App\\": "packages/playground/src"
+            "Empiriq\\": "packages"
         }
     },
     "scripts": {
         "phpcs": "./vendor/bin/phpcs --ignore=*/vendor/*,*/var/*,*/bin/* --standard=PSR12 --exclude=Generic.Files.LineLength packages",
         "phpunit": "./vendor/bin/phpunit",
         "psalm": "./vendor/bin/psalm",
-        "message": "./vendor/bin/conventional-commits prepare",
-        "post-autoload-dump": [
-            "php -r \"if (!file_exists('packages/playground/vendor')) { symlink(__DIR__ . '/vendor', __DIR__ . '/packages/playground/vendor'); echo 'Symlink created: packages/vendor -> vendor'.PHP_EOL; } else { echo 'Symlink already exists'.PHP_EOL; }\""
-        ],
-        "changelog": "conventional-changelog",
-        "release": "conventional-changelog --commit",
-        "release:patch": "conventional-changelog --patch --commit",
-        "release:minor": "conventional-changelog --minor --commit",
-        "release:major": "conventional-changelog --major --commit"
+        "message": "./vendor/bin/conventional-commits prepare"
     },
     "config": {
         "allow-plugins": {
@@ -107,7 +92,6 @@
                 "types": [
                     "feat",
                     "fix",
-                    "build",
                     "chore",
                     "ci",
                     "docs",
@@ -118,7 +102,12 @@
                 ],
                 "scopeRequired": false,
                 "scopes": [
-                    "binance-trade-bundle"
+                    "binance-trade-bundle",
+                    "entity",
+                    "event",
+                    "repository",
+                    "service",
+                    "dependency-injection"
                 ]
             }
         }
