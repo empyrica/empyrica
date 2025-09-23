@@ -26,7 +26,7 @@
                 "action": "sh",
                 "options": [
                     "-c",
-                    "(./vendor/bin/phpunit --cache-result-file=.phpunit.result.cache) & (./vendor/bin/phpcs --ignore=*/vendor/*,*/var/*,*/bin/* --standard=PSR12 --exclude=Generic.Files.LineLength packages) && wait"
+                    "(./vendor/bin/phpunit --cache-result-file=.phpunit.result.cache) & (./vendor/bin/phpcs --standard=PSR12 --exclude=Generic.Files.LineLength src) && wait"
                 ]
             }
         ]

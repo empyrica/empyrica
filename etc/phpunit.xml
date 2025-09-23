@@ -6,6 +6,6 @@
         stopOnFailure="true"
 >
     <testsuite name="Unit">
-        <directory>packages/*/Tests</directory>
+        <directory>src/*/Tests</directory>
     </testsuite>
 </phpunit>

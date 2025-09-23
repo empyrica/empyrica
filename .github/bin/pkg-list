@@ -24,7 +24,7 @@ extract_name() {
 }
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "$0")" && pwd)"
-PACKAGES_PATH="$SCRIPT_DIR/../../packages"
+PACKAGES_PATH="$SCRIPT_DIR/../../src"
 
 # --- Main ---
 for DIR in "$PACKAGES_PATH"/*; do

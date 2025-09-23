@@ -71,11 +71,11 @@
     },
     "autoload": {
         "psr-4": {
-            "Empiriq\\": "packages"
+            "Empiriq\\": "src"
         }
     },
     "scripts": {
-        "phpcs": "./vendor/bin/phpcs --standard=PSR12 --exclude=Generic.Files.LineLength packages",
+        "phpcs": "./vendor/bin/phpcs --standard=PSR12 --exclude=Generic.Files.LineLength src",
         "phpunit": "./vendor/bin/phpunit",
         "psalm": "./vendor/bin/psalm",
         "message": "./vendor/bin/conventional-commits prepare"

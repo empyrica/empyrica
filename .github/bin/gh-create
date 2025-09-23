@@ -34,7 +34,7 @@ extract_keywords() {
 while IFS= read -r LINE; do
   ORG=$(echo "$LINE" | cut -d'/' -f1)
   NAME=$(echo "$LINE" | cut -d'/' -f2)
-  FILE="packages/$NAME/composer.json"
+  FILE="src/$NAME/composer.json"
   if [ ! -f "$FILE" ]; then
       echo "Error: $FILE not found for $LINE" >&2
       exit 1

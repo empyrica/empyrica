@@ -29,7 +29,7 @@ git config user.email "$GH_EMAIL"
 while IFS= read -r LINE; do
     TAG=${GITHUB_REF#refs/tags/}
     NAME=$(echo "$LINE" | cut -d'/' -f2)
-    PACKAGE_PATH="packages/$NAME"
+    PACKAGE_PATH="src/$NAME"
     COMMIT=$(git subtree split --prefix="$PACKAGE_PATH" main -q)
 
 #    CHANGELOG=$(git cliff "$COMMIT")
