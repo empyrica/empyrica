@@ -19,7 +19,7 @@ final class ServerCommand extends Command
         private readonly LoggerInterface $logger,
         private readonly iterable $environments,
     ) {
-        parent::__construct(ENTRYPOINT);
+        parent::__construct(ENTRYPOINT); //todo fix
     }
 
     protected function configure(): void
