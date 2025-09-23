@@ -9,7 +9,7 @@
         findUnusedCode="true"
 >
     <projectFiles>
-        <directory name="../src/contracts"/>
+        <directory name="../src/Contracts"/>
     </projectFiles>
     <issueHandlers>
         <PossiblyUnusedMethod errorLevel="suppress" />
