@@ -2,8 +2,8 @@
     "name": "empyrica/contracts",
     "minimum-stability": "alpha",
     "prefer-stable": true,
-    "description": "Lazy iterators for historical Binance data from https://data.binance.vision",
-    "keywords": ["empiriq-component", "binance", "binance-api", "binance-streams", "binance-websockets"],
+    "description": "Framework designed for implementing your trading strategies",
+    "keywords": ["empiriq-component"],
     "type": "library",
     "license": "MIT",
     "authors": [

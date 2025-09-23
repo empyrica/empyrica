@@ -2,15 +2,8 @@
     "name": "empiriq/empiriq",
     "minimum-stability": "alpha",
     "prefer-stable": true,
-    "description": "Lazy iterators for historical Binance data from https://data.binance.vision",
-    "keywords": [
-        "binifit",
-        "binifit-environment",
-        "binance",
-        "binance-api",
-        "binance-streams",
-        "binance-websockets"
-    ],
+    "description": "Framework designed for implementing your trading strategies",
+    "keywords": [],
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -102,7 +95,6 @@
                 ],
                 "scopeRequired": false,
                 "scopes": [
-                    "binance-trade-bundle",
                     "entity",
                     "event",
                     "repository",
