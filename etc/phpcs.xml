@@ -6,11 +6,6 @@
     <arg value="p"/>
     <arg name="colors"/>
 
-    <!-- Исключаем лишние папки -->
-    <exclude-pattern>*/vendor/*</exclude-pattern>
-    <exclude-pattern>*/var/*</exclude-pattern>
-    <exclude-pattern>*/bin/*</exclude-pattern>
-    <exclude-pattern>*/cache/*</exclude-pattern>
     <exclude-pattern>*/Resources/*</exclude-pattern>
 
     <!-- Базовый стандарт -->

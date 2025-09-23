@@ -11,6 +11,7 @@ composer require empiriq/empiriq
 v1.0.0-alpha
 v1.0.0-alpha.1
 
+Переименовать наймспейсы
 {
 "Empiriq\\BinanceApiConnector\\": "packages/binance-trade-bundle",
 "Empiriq\\BinanceContracts\\": "packages/binance-contracts",
@@ -19,3 +20,5 @@ v1.0.0-alpha.1
 "Empiriq\\Contracts\\": "packages/contracts",
 "Empiriq\\Server\\": "packages/server"
 }
+Переименовать src
+Рефактор pkg-list заменить внутрянку на ls -d
