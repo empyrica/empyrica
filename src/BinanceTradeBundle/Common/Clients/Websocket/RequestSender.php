@@ -16,7 +16,6 @@ use Empiriq\BinanceContracts\Common\PermissionInterface;
 use React\Promise\PromiseInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Exception\ExceptionInterface as SerializerBaseException;
-use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Throwable;
 
 use function React\Promise\reject;

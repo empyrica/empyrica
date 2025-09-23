@@ -2,6 +2,7 @@
 
 namespace Empiriq\BinanceTradeBundle\Common\Helpers;
 
+use Empiriq\Contracts\SerializerInterface;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;
@@ -19,7 +20,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\UnwrappingDenormalizer;
 use Symfony\Component\Serializer\Serializer as SymfonySerializer;
 
-class Serializer extends SymfonySerializer
+class Serializer extends SymfonySerializer implements SerializerInterface
 {
     public function __construct(
         string $mappingDirectory = __DIR__ . '/../../Resources/mapping',
@@ -29,7 +30,11 @@ class Serializer extends SymfonySerializer
                 array_map(
                     fn(SplFileInfo $file) => new YamlFileLoader($file->getRealPath()),
                     array_filter(
-                        iterator_to_array(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($mappingDirectory))),
+                        iterator_to_array(
+                            new RecursiveIteratorIterator(
+                                new RecursiveDirectoryIterator($mappingDirectory)
+                            )
+                        ),
                         fn(SplFileInfo $file) => $file->getExtension() === 'yaml'
                     )
                 )
@@ -49,8 +54,10 @@ class Serializer extends SymfonySerializer
                         ]
                     ),
                     defaultContext: [
-                        AbstractObjectNormalizer::DISABLE_TYPE_ENFORCEMENT => true, // Do not enforce PHP types strictly during denormalization
-                        AbstractObjectNormalizer::SKIP_NULL_VALUES => true, // Skip null values when serializing objects to JSON/array
+                        // Do not enforce PHP types strictly during denormalization
+                        AbstractObjectNormalizer::DISABLE_TYPE_ENFORCEMENT => true,
+                        // Skip null values when serializing objects to JSON/array
+                        AbstractObjectNormalizer::SKIP_NULL_VALUES => true,
                     ]
                 ),
             ],

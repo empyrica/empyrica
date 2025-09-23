@@ -26,7 +26,8 @@ readonly class Registry implements RegistryInterface
         private array $repositories,
     ) {
         foreach ($this->repositories as $repository) {
-            if (!$repository instanceof FuturesCmRepositoryInterface) { //todo  FuturesCmRepositoryInterface ? RepositoryInterface
+            //todo  FuturesCmRepositoryInterface ? RepositoryInterface
+            if (!$repository instanceof FuturesCmRepositoryInterface) {
                 throw new \LogicException();
             }
         }

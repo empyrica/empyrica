@@ -4,16 +4,12 @@ namespace Empiriq\BinanceTradeBundle\Common\Clients\Websocket;
 
 use Empiriq\BinanceTradeBundle\Common\Exceptions\Network\ConnectionFailedException;
 use Empiriq\BinanceTradeBundle\Common\Exceptions\Network\DisconnectedException;
+use Empiriq\Contracts\SerializerInterface;
 use Psr\Log\LoggerInterface;
 use Ratchet\Client\WebSocket;
 use Ratchet\RFC6455\Messaging\MessageInterface;
 use React\Promise\PromiseInterface;
-use Symfony\Component\Serializer\Encoder\DecoderInterface;
-use Symfony\Component\Serializer\Encoder\EncoderInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\SerializerInterface;
 use Throwable;
 
 use function Ratchet\Client\connect;
@@ -22,7 +18,7 @@ use function React\Promise\reject;
 abstract class Connection
 {
     protected string $uri;
-    protected SerializerInterface & NormalizerInterface & DenormalizerInterface & EncoderInterface & DecoderInterface $serializer;
+    protected SerializerInterface $serializer;
     protected LoggerInterface $logger;
     protected ?WebSocket $connection = null;
 

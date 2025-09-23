@@ -4,6 +4,7 @@ namespace Empiriq\BinanceTradeBundle\Common\Clients\Rest;
 
 use DateTime;
 use DateTimeZone;
+use Empiriq\BinanceContracts\Common\PermissionInterface;
 use Empiriq\BinanceTradeBundle\Common\Exceptions\Configuration\ConfigurationException;
 use Empiriq\BinanceTradeBundle\Common\Exceptions\Network\DisconnectedException;
 use Empiriq\BinanceTradeBundle\Common\Exceptions\RuntimeException;
@@ -11,19 +12,14 @@ use Empiriq\BinanceTradeBundle\Common\Exceptions\Serialization\SerializationExce
 use Empiriq\BinanceTradeBundle\Common\Interfaces\SanitizerInterface;
 use Empiriq\BinanceTradeBundle\Common\Interfaces\SignerInterface;
 use Empiriq\BinanceTradeBundle\Common\Signers\NullSigner;
-use Empiriq\BinanceContracts\Common\PermissionInterface;
+use Empiriq\Contracts\SerializerInterface;
 use Exception;
 use Psr\Log\LoggerInterface;
 use React\Http\Browser;
 use React\Http\Message\Response;
 use React\Promise\PromiseInterface;
-use Symfony\Component\Serializer\Encoder\DecoderInterface;
-use Symfony\Component\Serializer\Encoder\EncoderInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Exception\ExceptionInterface as SerializerBaseException;
-use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Throwable;
 
 use function React\Promise\reject;
@@ -33,7 +29,7 @@ abstract class RestClient
     protected Browser $client;
     protected string $apiKey = '';
     protected SignerInterface $signer;
-    protected NormalizerInterface & DenormalizerInterface & EncoderInterface & DecoderInterface $serializer;
+    protected SerializerInterface $serializer;
     protected LoggerInterface $logger;
     protected SanitizerInterface $sanitizer;
     private int $timeOffsetMs = 0;
@@ -49,8 +45,14 @@ abstract class RestClient
      *
      * @return PromiseInterface<T>
      */
-    public function send(string $method, string $path, PermissionInterface $permission, string $type, mixed $payload = null, ?int $recvWindow = null): PromiseInterface
-    {
+    public function send(
+        string $method,
+        string $path,
+        PermissionInterface $permission,
+        string $type,
+        mixed $payload = null,
+        ?int $recvWindow = null
+    ): PromiseInterface {
         try {
             $id = bin2hex(random_bytes(8));
             $headers = [];
@@ -68,30 +70,45 @@ abstract class RestClient
                 $params['timestamp'] = $this->calculateTimestamp();
                 $params['signature'] = $this->getSigner()->createSignature($params);
             }
-            $this->logger->info(sprintf('Sending request (id: %s) %s %s', $id, $method, $path), $this->sanitizer->sanitize($params));
+            $this->logger->info(
+                sprintf('Sending request (id: %s) %s %s', $id, $method, $path),
+                $this->sanitizer->sanitize($params)
+            );
 
-            return $this->client->request($method, $path, $headers, http_build_query($params))->then(function (Response $response) use ($id, $type) {
-                $data = [
-                    'id' => $id,
-                    'status' => 200,
-                    'result' => $this->serializer->decode($response->getBody()->getContents(), JsonEncoder::FORMAT),
-                ];
-                $this->logger->info(sprintf('Received response (id: %s)', $id), $data['result'] ?? []);
+            return $this->client->request($method, $path, $headers, http_build_query($params))
+                ->then(function (Response $response) use ($id, $type) {
+                    $data = [
+                        'id' => $id,
+                        'status' => 200,
+                        'result' => $this->serializer->decode($response->getBody()->getContents(), JsonEncoder::FORMAT),
+                    ];
+                    $this->logger->info(
+                        sprintf('Received response (id: %s)', $id),
+                        $data['result'] ?? []
+                    );
 
-                return $this->serializer->denormalize($data, $type);
-            });
-        } catch (ConfigurationException $exception) {
-            $this->logger->error(sprintf('Failed to send request (id: %s query: %s %s) %s', $id, $method, $path, $exception->getMessage()));
-            return reject($exception);
-        } catch (DisconnectedException $exception) {
-            $this->logger->error(sprintf('Failed to send request (id: %s query: %s %s) %s', $id, $method, $path, $exception->getMessage()));
-            return reject($exception);
-        } catch (SerializerBaseException $exception) {
-            $this->logger->error(sprintf('Serialization failed for request (id: %s query: %s %s) %s', $id, $method, $path, $exception->getMessage()));
-            return reject(new SerializationException($exception->getMessage(), $exception->getCode(), $exception));
-        } catch (Throwable $exception) {
-            $this->logger->error(sprintf('Unexpected error while sending request (id: %s query: %s %s) %s', $id, $method, $path, $exception->getMessage()));
-            return reject(new RuntimeException($exception->getMessage(), $exception->getCode(), $exception));
+                    return $this->serializer->denormalize($data, $type);
+                });
+        } catch (ConfigurationException $e) {
+            $this->logger->error(
+                sprintf('Failed to send request (id: %s query: %s %s) %s', $id, $method, $path, $e->getMessage())
+            );
+            return reject($e);
+        } catch (DisconnectedException $e) {
+            $this->logger->error(
+                sprintf('Failed to send request (id: %s query: %s %s) %s', $id, $method, $path, $e->getMessage())
+            );
+            return reject($e);
+        } catch (SerializerBaseException $e) {
+            $this->logger->error(
+                sprintf('Serialization failed for request (id: %s query: %s %s) %s', $id, $method, $path, $e->getMessage())
+            );
+            return reject(new SerializationException($e->getMessage(), $e->getCode(), $e));
+        } catch (Throwable $e) {
+            $this->logger->error(
+                sprintf('Unexpected error while sending request (id: %s query: %s %s) %s', $id, $method, $path, $e->getMessage())
+            );
+            return reject(new RuntimeException($e->getMessage(), $e->getCode(), $e));
         }
     }
 

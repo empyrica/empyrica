@@ -75,7 +75,7 @@
         }
     },
     "scripts": {
-        "phpcs": "./vendor/bin/phpcs --standard=PSR12 --exclude=Generic.Files.LineLength src",
+        "phpcs": "vendor/bin/phpcs --standard=PSR12 src",
         "phpunit": "./vendor/bin/phpunit",
         "psalm": "./vendor/bin/psalm",
         "message": "./vendor/bin/conventional-commits prepare"

@@ -17,10 +17,6 @@ use Monolog\Level;
 use Monolog\Logger;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Serializer\Encoder\DecoderInterface;
-use Symfony\Component\Serializer\Encoder\EncoderInterface;
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 readonly class SpotTransportFactory
@@ -32,7 +28,7 @@ readonly class SpotTransportFactory
      * @param string $restApiUri
      * @param string $websocketApiUri
      * @param string $websocketStreamsUri
-     * @param DecoderInterface&SerializerInterface&NormalizerInterface&EncoderInterface&DenormalizerInterface $serializer
+     * @param SerializerInterface $serializer
      * @param SanitizerInterface $sanitizer
      * @param float $resolverTimeout
      * @param LoggerInterface $logger
@@ -44,7 +40,7 @@ readonly class SpotTransportFactory
         private string $restApiUri = 'https://api.binance.com', // testnet https://testnet.binance.vision/api
         private string $websocketApiUri = 'wss://ws-api.testnet.binance.vision/ws-api/v3', // testnet wss://ws-api.testnet.binance.vision/ws-api/v3
         private string $websocketStreamsUri = 'wss://stream.binance.com:9443/ws', // testnet ???
-        private SerializerInterface & NormalizerInterface & DenormalizerInterface & EncoderInterface & DecoderInterface $serializer = new Serializer(),
+        private SerializerInterface $serializer = new Serializer(),
         private SanitizerInterface $sanitizer = new Sanitizer(),
         private float $resolverTimeout = 10,
         private LoggerInterface $logger = new Logger('SPOT', [

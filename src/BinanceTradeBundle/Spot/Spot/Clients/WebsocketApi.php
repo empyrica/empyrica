@@ -7,13 +7,9 @@ use Empiriq\BinanceTradeBundle\Common\Interfaces\ClientInterface;
 use Empiriq\BinanceTradeBundle\Common\Interfaces\SanitizerInterface;
 use Empiriq\BinanceTradeBundle\Common\Interfaces\SignerInterface;
 use Empiriq\BinanceContracts\Spot\Spot\Common\EventInterface;
+use Empiriq\Contracts\SerializerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Serializer\Encoder\DecoderInterface;
-use Symfony\Component\Serializer\Encoder\EncoderInterface;
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @see https://developers.binance.com/docs/binance-spot-api-docs/testnet/websocket-api/general-api-information
@@ -26,7 +22,7 @@ final class WebsocketApi extends ResponseResolver implements ClientInterface
      * @param string $uri
      * @param string $apiKey
      * @param SignerInterface $signer
-     * @param DecoderInterface&SerializerInterface&NormalizerInterface&EncoderInterface&DenormalizerInterface $serializer
+     * @param SerializerInterface $serializer
      * @param LoggerInterface $logger
      * @param SanitizerInterface $sanitizer
      * @param float $resolverTimeout
@@ -36,7 +32,7 @@ final class WebsocketApi extends ResponseResolver implements ClientInterface
         protected string $uri,
         protected string $apiKey,
         protected SignerInterface $signer,
-        protected SerializerInterface & NormalizerInterface & DenormalizerInterface & EncoderInterface & DecoderInterface $serializer,
+        protected SerializerInterface $serializer,
         protected LoggerInterface $logger,
         protected SanitizerInterface $sanitizer,
         protected float $resolverTimeout,

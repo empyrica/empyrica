@@ -67,7 +67,9 @@ readonly class FuturesCoinMTransport implements TransportInterface
             }),
             $this->websocketStreams->run(),
         ])
-            ->then(fn() => all(array_map(fn(FuturesCoinMStreamInterface $stream) => $stream->subscribe($this), $this->streams)))
+            ->then(fn() => all(
+                array_map(fn(FuturesCoinMStreamInterface $stream) => $stream->subscribe($this), $this->streams))
+            )
             ->then(fn() => $this);
     }
 

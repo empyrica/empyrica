@@ -23,6 +23,8 @@ readonly class DepthStream implements SpotStreamInterface
 
     public function subscribe(SpotTransport $transport): PromiseInterface
     {
-        return $transport->subscribe(array_map(fn(string $symbol): string => strtolower($symbol) . '@depth', $this->symbols));
+        return $transport->subscribe(
+            array_map(fn(string $symbol): string => strtolower($symbol) . '@depth', $this->symbols)
+        );
     }
 }
