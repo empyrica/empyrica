@@ -6,13 +6,9 @@ use Empiriq\BinanceTradeBundle\Common\Clients\Websocket\ResponseResolver;
 use Empiriq\BinanceTradeBundle\Common\Interfaces\ClientInterface;
 use Empiriq\BinanceTradeBundle\Common\Interfaces\SanitizerInterface;
 use Empiriq\BinanceContracts\Derivatives\FuturesUsdM\Common\EventInterface;
+use Empiriq\Contracts\SerializerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Serializer\Encoder\DecoderInterface;
-use Symfony\Component\Serializer\Encoder\EncoderInterface;
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Handles WebSocket connections to Binance Coin Margined Futures market streams.
@@ -27,7 +23,7 @@ final class WebsocketStreams extends ResponseResolver implements ClientInterface
     /**
      * @param EventDispatcherInterface $dispatcher
      * @param string $uri
-     * @param DecoderInterface&SerializerInterface&NormalizerInterface&EncoderInterface&DenormalizerInterface $serializer
+     * @param SerializerInterface $serializer
      * @param LoggerInterface $logger
      * @param SanitizerInterface $sanitizer
      * @param float $resolverTimeout
@@ -35,7 +31,7 @@ final class WebsocketStreams extends ResponseResolver implements ClientInterface
     public function __construct(
         protected EventDispatcherInterface $dispatcher,
         protected string $uri,
-        protected SerializerInterface & NormalizerInterface & DenormalizerInterface & EncoderInterface & DecoderInterface $serializer,
+        protected SerializerInterface $serializer,
         protected LoggerInterface $logger,
         protected SanitizerInterface $sanitizer,
         protected float $resolverTimeout,

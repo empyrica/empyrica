@@ -2,6 +2,8 @@
 
 namespace Empiriq\BinanceTradeBundle\Derivatives\FuturesCoinM;
 
+use Empiriq\BinanceContracts\Derivatives\FuturesCoinM\Responses\Account\AccountStatusResponse;
+use Empiriq\BinanceContracts\Derivatives\FuturesCoinM\Responses\General\TimeResponse;
 use Empiriq\BinanceTradeBundle\Common\Exceptions\Configuration\ConfigurationException;
 use Empiriq\BinanceTradeBundle\Common\Interfaces\Streams\FuturesCoinMStreamInterface;
 use Empiriq\BinanceTradeBundle\Common\Interfaces\TransportInterface;
@@ -15,8 +17,6 @@ use Empiriq\BinanceTradeBundle\Derivatives\FuturesCoinM\Methods\MarketDataMethod
 use Empiriq\BinanceTradeBundle\Derivatives\FuturesCoinM\Methods\MarketStreamMethods;
 use Empiriq\BinanceTradeBundle\Derivatives\FuturesCoinM\Methods\TradingMethods;
 use Empiriq\BinanceTradeBundle\Derivatives\FuturesCoinM\Methods\UserDataStreamMethods;
-use Empiriq\BinanceContracts\Derivatives\FuturesCoinM\Responses\General\TimeResponse;
-use Empiriq\BinanceContracts\Derivatives\FuturesCoinM\Responses\Account\AccountStatusResponse;
 use React\Promise\PromiseInterface;
 
 use function React\Promise\all;
@@ -68,8 +68,11 @@ readonly class FuturesCoinMTransport implements TransportInterface
             $this->websocketStreams->run(),
         ])
             ->then(fn() => all(
-                array_map(fn(FuturesCoinMStreamInterface $stream) => $stream->subscribe($this), $this->streams))
-            )
+                array_map(
+                    fn(FuturesCoinMStreamInterface $stream) => $stream->subscribe($this),
+                    $this->streams
+                )
+            ))
             ->then(fn() => $this);
     }
 

@@ -4,6 +4,7 @@ namespace Empiriq\BinanceTradeBundle\Common\Clients\Websocket;
 
 use DateTime;
 use DateTimeZone;
+use Empiriq\BinanceContracts\Common\PermissionInterface;
 use Empiriq\BinanceTradeBundle\Common\Exceptions\Configuration\ConfigurationException;
 use Empiriq\BinanceTradeBundle\Common\Exceptions\Network\DisconnectedException;
 use Empiriq\BinanceTradeBundle\Common\Exceptions\RuntimeException;
@@ -12,7 +13,6 @@ use Empiriq\BinanceTradeBundle\Common\Interfaces\SanitizerInterface;
 use Empiriq\BinanceTradeBundle\Common\Interfaces\SignerInterface;
 use Empiriq\BinanceTradeBundle\Common\Signers\Ed25519Signer;
 use Empiriq\BinanceTradeBundle\Common\Signers\NullSigner;
-use Empiriq\BinanceContracts\Common\PermissionInterface;
 use React\Promise\PromiseInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Exception\ExceptionInterface as SerializerBaseException;
@@ -38,8 +38,13 @@ abstract class RequestSender extends EventDispatcher
      *
      * @return PromiseInterface<T>
      */
-    public function send(string $method, PermissionInterface $permission, string $type, mixed $payload = null, ?int $recvWindow = null): PromiseInterface
-    {
+    public function send(
+        string $method,
+        PermissionInterface $permission,
+        string $type,
+        mixed $payload = null,
+        ?int $recvWindow = null
+    ): PromiseInterface {
         try {
             $request = [
                 'id' => bin2hex(random_bytes(8)),
@@ -58,21 +63,32 @@ abstract class RequestSender extends EventDispatcher
                 $request['params']['timestamp'] = $this->calculateTimestamp();
                 $request['params']['signature'] = $this->getSigner()->createSignature($request['params']);
             }
-            $this->logger->info(sprintf('Sending request (method: %s, id: %s)', $method, $request['id']), $this->sanitizer->sanitize($request['params'] ?? []));
+            $this->logger->info(
+                sprintf('Sending request (method: %s, id: %s)', $method, $request['id']),
+                $this->sanitizer->sanitize($request['params'] ?? [])
+            );
             $this->getConnection()->send($this->serializer->encode($request, JsonEncoder::FORMAT));
 
             return $this->addPending($request, $type);
         } catch (ConfigurationException $exception) {
-            $this->logger->error(sprintf('Failed to send request (method: %s): %s', $method, $exception->getMessage()));
+            $this->logger->error(
+                sprintf('Failed to send request (method: %s): %s', $method, $exception->getMessage())
+            );
             return reject($exception);
         } catch (DisconnectedException $exception) {
-            $this->logger->error(sprintf('Failed to send request (method: %s): %s', $method, $exception->getMessage()));
+            $this->logger->error(
+                sprintf('Failed to send request (method: %s): %s', $method, $exception->getMessage())
+            );
             return reject($exception);
         } catch (SerializerBaseException $exception) {
-            $this->logger->error(sprintf('Serialization failed for request (method: %s): %s', $method, $exception->getMessage()));
+            $this->logger->error(
+                sprintf('Serialization failed for request (method: %s): %s', $method, $exception->getMessage())
+            );
             return reject(new SerializationException($exception->getMessage(), $exception->getCode(), $exception));
         } catch (Throwable $exception) {
-            $this->logger->error(sprintf('Unexpected error while sending request (method: %s): %s', $method, $exception->getMessage()));
+            $this->logger->error(
+                sprintf('Unexpected error while sending request (method: %s): %s', $method, $exception->getMessage())
+            );
             return reject(new RuntimeException($exception->getMessage(), $exception->getCode(), $exception));
         }
     }

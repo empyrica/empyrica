@@ -900,7 +900,8 @@ enum Error: int
     case NO_NEED_TO_CHANGE_JOINT_MARGIN = -4171;
 
     /**
-     * Unable to adjust Multi-Assets Mode with a negative wallet balance of margin available asset in USDⓈ-M Futures account.
+     * Unable to adjust Multi-Assets Mode with a negative wallet balance
+     * of margin available asset in USDⓈ-M Futures account.
      */
     case JOINT_MARGIN_REJECT_WITH_NEGATIVE_BALANCE = -4172;
 
@@ -967,7 +968,8 @@ enum Error: int
     case TRADING_QUANTITATIVE_RULE = -4400;
 
     /**
-     * Futures Trading Risk Control Rules of large position holding violated, only reduceOnly order is allowed, please reduce the position.
+     * Futures Trading Risk Control Rules of large position holding violated,
+     * only reduceOnly order is allowed, please reduce the position.
      */
     case LARGE_POSITION_SYM_RULE = -4401;
 
@@ -977,8 +979,8 @@ enum Error: int
     case COMPLIANCE_BLACK_SYMBOL_RESTRICTION = -4402;
 
     /**
-     * Dear user, as per our Terms of Use and compliance with local regulations, the leverage can only up to 10x in your region
-     * Dear user, as per our Terms of Use and compliance with local regulations, the leverage can only up to %sx in your region
+     * Dear user, as per our Terms of Use and compliance with local regulations,
+     * the leverage can only up to 10x in your region
      */
     case ADJUST_LEVERAGE_COMPLIANCE_FAILED = -4403;
 

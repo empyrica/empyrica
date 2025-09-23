@@ -482,13 +482,11 @@ enum Error: int
 
     /**
      * NEW_ORDER_REJECTED.
-     * @see https://developers.binance.com/docs/binance-spot-api-docs/errors#messages-for--1010-error_msg_received--2010-new_order_rejected--2011-cancel_rejected-and--2038-order_amend_rejected
      */
     case NEW_ORDER_REJECTED = -2010;
 
     /**
      * CANCEL_REJECTED.
-     * @see https://developers.binance.com/docs/binance-spot-api-docs/errors#messages-for--1010-error_msg_received--2010-new_order_rejected--2011-cancel_rejected-and--2038-order_amend_rejected
      */
     case CANCEL_REJECTED = -2011;
 
@@ -548,7 +546,7 @@ enum Error: int
     // --- Errors regarding placing orders via cancelReplace ---
 
     /**
-     * This code is sent when either the cancellation of the order failed or the new order placement failed but not both.
+     * This code is sent when either the cancellation of order failed or new order placement failed but not both.
      */
     case ORDER_CANCEL_REPLACE_PARTIALLY_FAILED = -2021;
 

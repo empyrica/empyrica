@@ -47,7 +47,9 @@ readonly class Connector implements ConnectorInterface, EnvironmentInterface
         }
 
         return all($connections)->catch(function (Throwable $exception) {
-            $this->logger->critical(sprintf('Error in connector (code: %s, message: %s)', $exception->getCode(), $exception->getMessage()));
+            $this->logger->critical(
+                sprintf('Error in connector (code: %s, message: %s)', $exception->getCode(), $exception->getMessage())
+            );
             throw $exception;
         })->then(function () {
             return $this;
@@ -75,7 +77,10 @@ readonly class Connector implements ConnectorInterface, EnvironmentInterface
      */
     private function getTransport(string $className): TransportInterface
     {
-        $transport = array_find($this->transports, fn(TransportInterface $transport): bool => get_class($transport) === $className);
+        $transport = array_find(
+            $this->transports,
+            fn(TransportInterface $transport): bool => get_class($transport) === $className
+        );
         if (!$transport) {
             throw new ConfigurationException(sprintf('Transport not found: : "%s".', $className));
         }

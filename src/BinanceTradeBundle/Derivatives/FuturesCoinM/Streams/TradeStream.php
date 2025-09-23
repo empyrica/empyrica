@@ -23,6 +23,8 @@ readonly class TradeStream implements FuturesCoinMStreamInterface
 
     public function subscribe(FuturesCoinMTransport $transport): PromiseInterface
     {
-        return $transport->subscribe(array_map(fn(string $symbol): string => strtolower($symbol) . '@trade', $this->symbols));
+        return $transport->subscribe(
+            array_map(fn(string $symbol): string => strtolower($symbol) . '@trade', $this->symbols)
+        );
     }
 }

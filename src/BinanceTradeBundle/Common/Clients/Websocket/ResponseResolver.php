@@ -31,9 +31,12 @@ abstract class ResponseResolver extends RequestSender
                         $response = $this->serializer->denormalize($rawResponse, $pending->type);
                         $this->logger->info(sprintf('Received response (id: %s)', $pending->id), $data['result'] ?? []);
                         $pending->deferred->resolve($response);
-                    } catch (Throwable $exception) {
-                        $this->logger->warning(sprintf('Response denormalization failed (id: %s): %s', $pending->id, $exception->getMessage()), $data);
-                        $pending->deferred->reject(new DeserializationException($exception->getMessage(), $exception->getCode(), $exception));
+                    } catch (Throwable $e) {
+                        $this->logger->warning(
+                            sprintf('Response denormalization failed (id: %s): %s', $pending->id, $e->getMessage()),
+                            $data
+                        );
+                        $pending->deferred->reject(new DeserializationException($e->getMessage(), $e->getCode(), $e));
                     }
                 } else {
                     $msg = $data['error']['msg'] ?? 'unknown';
@@ -55,15 +58,16 @@ abstract class ResponseResolver extends RequestSender
         $this->pending[$pending->id] = $pending;
         $this->logger->info(sprintf('Created pending request (id: %s)', $pending->id), $pending->request);
 
-        return timeout($pending->deferred->promise(), $this->resolverTimeout)->catch(function (ReactTimeoutException $exception) use ($pending) {
-            if (!isset($this->pending[$pending->id])) {
-                return;
-            }
-            $this->logger->warning(sprintf('Request timed out (id: %s)', $pending->id), $pending->request);
-            $pending->deferred->reject(new TimeoutException('Request timed out', 0, $exception));
-            unset($this->pending[$pending->id]);
-            throw $exception;
-        });
+        return timeout($pending->deferred->promise(), $this->resolverTimeout)
+            ->catch(function (ReactTimeoutException $exception) use ($pending) {
+                if (!isset($this->pending[$pending->id])) {
+                    return;
+                }
+                $this->logger->warning(sprintf('Request timed out (id: %s)', $pending->id), $pending->request);
+                $pending->deferred->reject(new TimeoutException('Request timed out', 0, $exception));
+                unset($this->pending[$pending->id]);
+                throw $exception;
+            });
     }
 
     private function ejectPending(string $id): ?PendingRequest
@@ -81,7 +85,9 @@ abstract class ResponseResolver extends RequestSender
     private function rejectAllPending(RuntimeException $reason): void
     {
         if ($this->pending) {
-            $this->logger->warning(sprintf('Rejecting all pending requests (%d), reason: %s', count($this->pending), $reason->getMessage()));
+            $this->logger->warning(
+                sprintf('Rejecting all pending requests (%d), reason: %s', count($this->pending), $reason->getMessage())
+            );
         }
         foreach ($this->pending as $item) {
             $item->deferred->reject($reason);

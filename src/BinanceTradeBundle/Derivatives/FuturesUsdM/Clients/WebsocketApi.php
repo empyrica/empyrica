@@ -7,13 +7,13 @@ use Empiriq\BinanceTradeBundle\Common\Interfaces\ClientInterface;
 use Empiriq\BinanceTradeBundle\Common\Interfaces\SanitizerInterface;
 use Empiriq\BinanceTradeBundle\Common\Interfaces\SignerInterface;
 use Empiriq\BinanceContracts\Derivatives\FuturesUsdM\Common\EventInterface;
+use Empiriq\Contracts\SerializerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Serializer\Encoder\DecoderInterface;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @see https://developers.binance.com/docs/derivatives/usds-margined-futures/websocket-api-general-info
@@ -26,7 +26,7 @@ final class WebsocketApi extends ResponseResolver implements ClientInterface
      * @param SignerInterface $signer
      * @param string $uri Testnet by default, the main: wss://ws-fapi.binance.com/ws-fapi/v1
      * @param float $resolverTimeout
-     * @param SerializerInterface & NormalizerInterface & DenormalizerInterface & EncoderInterface & DecoderInterface $serializer
+     * @param SerializerInterface $serializer
      * @param SanitizerInterface $sanitizer
      * @param LoggerInterface $logger
      */
@@ -35,7 +35,7 @@ final class WebsocketApi extends ResponseResolver implements ClientInterface
         protected string $uri,
         protected string $apiKey,
         protected SignerInterface $signer,
-        protected SerializerInterface & NormalizerInterface & DenormalizerInterface & EncoderInterface & DecoderInterface $serializer,
+        protected SerializerInterface $serializer,
         protected LoggerInterface $logger,
         protected SanitizerInterface $sanitizer,
         protected float $resolverTimeout,
