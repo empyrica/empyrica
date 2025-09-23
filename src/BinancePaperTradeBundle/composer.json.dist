@@ -3,7 +3,7 @@
     "minimum-stability": "alpha",
     "prefer-stable": true,
     "description": "Lazy iterators for historical Binance data from https://data.binance.vision",
-    "keywords": ["binifit", "binifit-environment", "binance", "binance-api", "binance-streams", "binance-websockets"],
+    "keywords": ["empiriq-environment", "binance", "binance-api", "binance-streams", "binance-websockets"],
     "type": "library",
     "license": "MIT",
     "authors": [
