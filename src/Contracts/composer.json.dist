@@ -1,5 +1,5 @@
 {
-    "name": "empyrica/contracts",
+    "name": "empiriq/contracts",
     "minimum-stability": "alpha",
     "prefer-stable": true,
     "description": "Framework designed for implementing your trading strategies",

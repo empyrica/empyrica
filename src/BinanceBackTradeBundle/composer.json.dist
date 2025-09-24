@@ -1,5 +1,5 @@
 {
-    "name": "empiriq/binance-backtrade-bundle",
+    "name": "empiriq/binance-back-trade-bundle",
     "minimum-stability": "alpha",
     "prefer-stable": true,
     "description": "Lazy iterators for historical Binance data from https://data.binance.vision",
@@ -47,7 +47,7 @@
         "symfony/runtime": "^7.3"
     },
     "autoload": {
-        "psr-4": { "Empiriq\\BinanceHistoryConnector\\": "" },
+        "psr-4": { "Empiriq\\BinanceBackTradeBundle\\": "" },
         "exclude-from-classmap": [ "/Tests/" ]
     }
 }

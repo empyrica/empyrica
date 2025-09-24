@@ -47,7 +47,7 @@
         "symfony/runtime": "^7.3"
     },
     "autoload": {
-        "psr-4": { "Empiriq\\BinanceApiConnector\\": "" },
+        "psr-4": { "Empiriq\\BinanceTradeBundle\\": "" },
         "exclude-from-classmap": [ "/Tests/" ]
     }
 }

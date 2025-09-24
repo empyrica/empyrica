@@ -1,5 +1,5 @@
 {
-    "name": "empiriq/binance-papertrade-bundle",
+    "name": "empiriq/binance-paper-trade-bundle",
     "minimum-stability": "alpha",
     "prefer-stable": true,
     "description": "Framework designed for implementing your trading strategies",
@@ -47,7 +47,7 @@
         "symfony/runtime": "^7.3"
     },
     "autoload": {
-        "psr-4": { "Empiriq\\BinancePapertradeBundle\\": "" },
+        "psr-4": { "Empiriq\\BinancePaperTradeBundle\\": "" },
         "exclude-from-classmap": [ "/Tests/" ]
     }
 }
